@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+  app:
+    build: .
+    container_name: genie_app
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres:latest
     container_name: ${CONTAINER_NAME}
@@ -12,4 +23,4 @@ services:
     ports:
       - "5428:5432"
     volumes:
-      - ./postgres:/var/lib/postgesql/data
+      - ./postgres:/var/lib/postgresql/data
